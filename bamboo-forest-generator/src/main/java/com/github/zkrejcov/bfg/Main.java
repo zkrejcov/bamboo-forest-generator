@@ -19,14 +19,6 @@ import javax.imageio.ImageIO;
 
 public class Main {
 
-    // file path
-    private static final String PATH = "./bamboo-forest.png";
-    private static String FORMAT = "png";
-
-    // canvas size in px
-    private static final int SIZE_X = 1052;
-    private static final int SIZE_Y = 744;
-
     // number of tree levels
     private static final int TREE_LEVELS = 6;
 
@@ -34,20 +26,32 @@ public class Main {
     private static final Color PICTURE_BACKGROUND_COLOR = Color.WHITE;
     private static final Color FOREST_BACKGROUND_COLOR = Color.BLACK;
 
+    // file path
+    private static String PATH = "./bamboo-forest.png";
+    private static String FORMAT = "png";
+
+    // canvas size in px
+    private static int SIZE_X = 1052;
+    private static int SIZE_Y = 744;
+
     // bamboo
-    private static final int BASE_TREE_WIDTH = SIZE_X / 20;
+    private static int BASE_TREE_WIDTH;
 
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
     public static void main(String[] args) {
-        // divine the output path from args
-        File output;
-        if (args.length > 0) {
-            output = new File(args[0]);
-            FORMAT = args[0].replaceAll(".*\\.", "");
-        } else {
-            output = new File(PATH);
-        }
+        // divine the output path and picture (and therefore tree) size
+        PATH = System.getProperty("outputPath", PATH);
+        FORMAT = PATH.replaceAll(".*\\.", "");
+        try {
+            SIZE_X = Integer.parseInt(System.getProperty("width"));
+        } catch (NumberFormatException nfe) {
+            System.out.println("nfe");}
+        try {
+            SIZE_Y = Integer.parseInt(System.getProperty("height"));
+        } catch (NumberFormatException nfe) {}
+        System.out.println(SIZE_X + "x" + SIZE_Y);
+        BASE_TREE_WIDTH = SIZE_X / 20;
 
         BufferedImage result = new BufferedImage(SIZE_X, SIZE_Y, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = result.createGraphics();
@@ -87,7 +91,7 @@ public class Main {
         // write it out
         result.flush();
         try {
-            ImageIO.write(result, FORMAT, output);
+            ImageIO.write(result, FORMAT, new File(PATH));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
