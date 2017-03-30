@@ -108,7 +108,7 @@ public class BambooTree {
 
     private int get1BasedTreeSegmentIndex(int lowestViableSegment, int branchCount, int branchNumber) {
         // 1-based, not using the last segment
-        int maxSectionSegment = (int) Math.ceil(lowestViableSegment / branchCount);
+        int maxSectionSegment = (int) Math.max(Math.ceil(lowestViableSegment / branchCount), 1);
         int segmentIndex = RANDOM.nextInt(maxSectionSegment) + maxSectionSegment * branchNumber;
         if (segmentIndex > lowestViableSegment) {
             segmentIndex = lowestViableSegment;
