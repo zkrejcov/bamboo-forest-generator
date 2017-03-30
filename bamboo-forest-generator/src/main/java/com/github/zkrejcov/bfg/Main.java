@@ -26,6 +26,9 @@ public class Main {
     private static final Color PICTURE_BACKGROUND_COLOR = Color.WHITE;
     private static final Color FOREST_BACKGROUND_COLOR = Color.BLACK;
 
+    // bamboo
+    private static final int BASE_TREE_WIDTH = 52;
+
     // file path
     private static String PATH = "./bamboo-forest.png";
     private static String FORMAT = "png";
@@ -33,9 +36,6 @@ public class Main {
     // canvas size in px
     private static int SIZE_X = 1052;
     private static int SIZE_Y = 744;
-
-    // bamboo
-    private static int BASE_TREE_WIDTH;
 
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
@@ -45,13 +45,10 @@ public class Main {
         FORMAT = PATH.replaceAll(".*\\.", "");
         try {
             SIZE_X = Integer.parseInt(System.getProperty("width"));
-        } catch (NumberFormatException nfe) {
-            System.out.println("nfe");}
+        } catch (NumberFormatException nfe) {}
         try {
             SIZE_Y = Integer.parseInt(System.getProperty("height"));
         } catch (NumberFormatException nfe) {}
-        System.out.println(SIZE_X + "x" + SIZE_Y);
-        BASE_TREE_WIDTH = SIZE_X / 20;
 
         BufferedImage result = new BufferedImage(SIZE_X, SIZE_Y, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = result.createGraphics();
