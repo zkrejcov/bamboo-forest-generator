@@ -1,0 +1,8 @@
+set background img path with:
+	gsettings set org.gnome.desktop.background picture-uri "file:///some/path/picture.ext"
+
+set background img picture-options to centered (it should help to display the picture nicely) with:
+	gsettings set org.gnome.desktop.background picture-options "centered"
+
+set a cron job to effectively change the background every hour:
+	sudo echo "0 * * * * <user> java -Dwidth=<screen width in px without unit> -Dheight=<screen height in px without unit> -jar bamboo-forest-generator/target/bamboo-forest-generator-1.0-SNAPSHOT.jar -DoutputPath=/some/path/picture.ext" >> /etc/crontab
