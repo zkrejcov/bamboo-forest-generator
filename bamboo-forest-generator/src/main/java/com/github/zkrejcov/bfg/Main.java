@@ -21,6 +21,7 @@ public class Main {
 
     // file path
     private static final String PATH = "./bamboo-forest.png";
+    private static String FORMAT = "png";
 
     // canvas size in px
     private static final int SIZE_X = 1052;
@@ -39,6 +40,15 @@ public class Main {
     private static final Random RANDOM = new Random(System.currentTimeMillis());
 
     public static void main(String[] args) {
+        // divine the output path from args
+        File output;
+        if (args.length > 0) {
+            output = new File(args[0]);
+            FORMAT = args[0].replaceAll(".*\\.", "");
+        } else {
+            output = new File(PATH);
+        }
+
         BufferedImage result = new BufferedImage(SIZE_X, SIZE_Y, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = result.createGraphics();
         graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
@@ -77,7 +87,7 @@ public class Main {
         // write it out
         result.flush();
         try {
-            ImageIO.write(result, "png", new File(PATH));
+            ImageIO.write(result, FORMAT, output);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
